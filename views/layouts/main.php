@@ -103,6 +103,12 @@ use app\core\Constant;
                             <i class="ti ti-menu-2"></i>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-icon-hover" href="/cart">
+                            <i class="ti ti-shopping-cart"></i>
+                            <div id="shopping-cart" class=""></div>
+                        </a>
+                    </li>
                 </ul>
                 <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                     <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
@@ -133,8 +139,8 @@ use app\core\Constant;
 <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/sidebarmenu.js"></script>
 <script src="../assets/js/app.min.js"></script>
-<script src="../assets/js/index.js"></script>
 <script src="../assets/js/constants/localStorageConstants.js"></script>
+<script src="../assets/js/index.js"></script>
 
 
 
@@ -165,15 +171,28 @@ if ($error !== false) {
 ?>
 
 <script>
+    $(document).ready(function (){
+        showCartNotification();
+    });
 
-    // $(document).on('click', '.add-car', function (){
-    //     let id = $(this).data("id");
-    //     let title = $(this).data("title");
-    //     let author = $(this).data("author");
-    //     let price = $(this).data("price");
-    //     let image = $(this).data("image");
-    //     addToCart(id, title, author, price, image);
-    // });
+    $(document).on('click', '.add-car', function (){
+        let id = $(this).data("id");
+        let title = $(this).data("title");
+        let author = $(this).data("author");
+        let price = $(this).data("price");
+        let image = $(this).data("image");
+        let description = $(this).data("description");
+
+        addToCart(id, title, author, price, image, description);
+        $("#quantity-button-" + id).html(checkQuantity(id));
+    });
+
+    $(document).on('click', '.remove-car', function (){
+        let id = $(this).data("id");
+
+        removeFromCart(id);
+        $("#quantity-button-" + id).html(checkQuantity(id));
+    });
 
 </script>
 

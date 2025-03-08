@@ -4,6 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use app\controllers\AuthController;
 use app\controllers\BookController;
+use app\controllers\CartController;
 use app\controllers\HomeController;
 use app\controllers\ProductController;
 use app\controllers\UserController;
@@ -28,6 +29,8 @@ $app->router->get("/logout", [AuthController::class, 'logout']);
 
 
 $app->router->get("/bookList", [BookController::class, 'bookList']);
+$app->router->get("/cart", [CartController::class, 'cart']);
+$app->router->get("/noItemsInCart", [CartController::class, 'noItemsInCart']);
 $app->router->get("/bookListApi", [BookController::class, 'bookListApi']);
 //todo :: popravi ove linkove i metode
 

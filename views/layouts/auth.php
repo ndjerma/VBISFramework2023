@@ -43,8 +43,9 @@
     </div>
 </div>
 <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/index.js"></script>
 <script src="../assets/js/constants/localStorageConstants.js"></script>
+<script src="../assets/js/index.js"></script>
+
 
 
 <?php

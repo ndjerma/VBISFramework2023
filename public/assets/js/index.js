@@ -25,7 +25,7 @@ function addToCart(id, title, author, price, image, description){
     }
 
     showCartNotification();
-    totalPrice();
+    getCart();
 
     toastr.remove();
     toastr.success("Cart is updated!");
@@ -52,16 +52,16 @@ function removeFromCart(id){
     localStorage.setItem(localStorageConstants.cart, JSON.stringify(currentState));
 
     showCartNotification();
-    totalPrice();
+    getCart();
 
     toastr.remove();
     toastr.success("Cart is updated!");
 }
 
-function renderCard(data){
+function renderCard(data, panel){
     if (data.length > 0) {
         $.each(data, function (i, item) {
-            $("#panel").append(
+            $(panel).append(
                 '<div class="col-md-4">' +
                 '<div class="card">' +
                 '<img src="' + item.image + '" class="card-img-top" alt="...">' +
@@ -79,8 +79,6 @@ function renderCard(data){
             );
         });
     }
-
-    totalPrice();
 }
 
 function totalPrice(){
@@ -97,22 +95,26 @@ function totalPrice(){
     $("#checkout-button").html("Checkout - " + totalPrice + " €");
 }
 
-function getAllBooks() {
+function getAllBooks(panel) {
     $.get("/bookListApi", function (response) {
         let jsonResponse = JSON.parse(response);
 
-        renderCard(jsonResponse);
+        renderCard(jsonResponse, panel);
     });
 }
 
-function getCart() {
+function getCart(panel) {
+    $(panel).empty();
+
     let currentState = JSON.parse(localStorage.getItem(localStorageConstants.cart));
 
     if(currentState && currentState.items && currentState.items.length > 0){
-        renderCard(currentState.items);
+        renderCard(currentState.items, panel);
     } else {
         window.location.href = "/noItemsInCart";
     }
+
+    totalPrice();
 }
 
 function changeState(currentState, data){

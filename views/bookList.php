@@ -1,9 +1,7 @@
-<div class="row" id="panel"></div>
+<div class="row" id="book-panel"></div>
 
 <script>
     $(document).ready(function () {
-        getAllBooks("#panel");
-        // console.log("✅ index.js je uspešno učitan!");
-
+        getAllBooks("#book-panel");
     });
 </script>

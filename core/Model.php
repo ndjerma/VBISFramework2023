@@ -70,6 +70,18 @@ abstract class Model extends DbConnection
         return $this->fetchOne($dbResult);
     }
 
+    public function getLastRecord($whereStatement): array
+    {
+        $tableName = $this->tableName();
+        $attributes = $this->readAttributes();
+
+        $sqlString = "SELECT " . implode(',', $attributes) . " FROM $tableName  $whereStatement order by id desc LIMIT 1;";
+
+        $dbResult = $this->query($sqlString);
+
+        return $this->fetchOne($dbResult);
+    }
+
     public function validate()
     {
         $all_rules = $this->rules();

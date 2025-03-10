@@ -139,8 +139,12 @@ use app\core\Constant;
 <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/sidebarmenu.js"></script>
 <script src="../assets/js/app.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>-->
 <script src="../assets/js/constants/localStorageConstants.js"></script>
 <script src="../assets/js/index.js"></script>
+<script src="../assets/js/plugins/chartjs.min.js"></script>
+
 
 
 

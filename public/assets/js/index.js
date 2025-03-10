@@ -25,8 +25,7 @@ function addToCart(id, title, author, price, image, description){
     }
 
     showCartNotification();
-    getCart();
-
+    getCart("#cart-panel");
     toastr.remove();
     toastr.success("Cart is updated!");
 }
@@ -52,7 +51,7 @@ function removeFromCart(id){
     localStorage.setItem(localStorageConstants.cart, JSON.stringify(currentState));
 
     showCartNotification();
-    getCart();
+    getCart("#cart-panel");
 
     toastr.remove();
     toastr.success("Cart is updated!");
@@ -78,6 +77,8 @@ function renderCard(data, panel){
                 '</div>'
             );
         });
+
+        $(panel).fadeIn("slow");
     }
 }
 
@@ -105,15 +106,17 @@ function getAllBooks(panel) {
 
 function getCart(panel) {
     $(panel).empty();
+    $(panel).hide();
 
     let currentState = JSON.parse(localStorage.getItem(localStorageConstants.cart));
 
     if(currentState && currentState.items && currentState.items.length > 0){
         renderCard(currentState.items, panel);
     } else {
-        window.location.href = "/noItemsInCart";
+        if(window.location.pathname === "/cart"){
+            window.location.href = "/noItemsInCart";
+        }
     }
-
     totalPrice();
 }
 
@@ -163,5 +166,37 @@ function showCartNotification(){
     } else {
         $("#shopping-cart").removeClass("notification bg-primary rounded-circle");
     }
+}
 
+function saveCart(){
+    let currentState = JSON.parse(localStorage.getItem(localStorageConstants.cart));
+    let totalPrice = 0;
+
+    if(currentState && currentState.items && currentState.items.length > 0) {
+        for (let i = 0; i < currentState.items.length; i++) {
+            totalPrice = totalPrice + (currentState.items[i].quantity * currentState.items[i].price);
+        }
+
+        let data = {
+            total_price : totalPrice,
+            cart : currentState
+        }
+
+        $.post("/cartPost", data, function(){
+            toastr.success("Successfully created order!");
+            localStorage.removeItem(localStorageConstants.cart);
+
+            setTimeout(function (){
+                window.location.href = "/bookList";
+            }, 5000);
+        });
+    }
+}
+
+function createGraph(setData, graph, chartType, options){
+    new Chart(graph, {
+        type: chartType,
+        data: setData,
+        options: options
+    });
 }

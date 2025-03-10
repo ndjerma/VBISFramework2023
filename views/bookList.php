@@ -1,4 +1,4 @@
-<div class="row" id="book-panel"></div>
+<div class="row" id="book-panel" style="display: none;"></div>
 
 <script>
     $(document).ready(function () {

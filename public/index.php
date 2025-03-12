@@ -28,6 +28,7 @@ $app->router->get("/bookList", [BookController::class, 'bookList']);
 $app->router->get("/cart", [CartController::class, 'cart']);
 $app->router->get("/noItemsInCart", [CartController::class, 'noItemsInCart']);
 $app->router->get("/reportTotalPricePerMonth", [ReportController::class, 'totalPricePerMonth']);
+$app->router->get("/reportTotalPricePerTitle", [ReportController::class, 'totalPricePerTitle']);
 $app->router->get("/bookListApi", [BookController::class, 'bookListApi']);
 $app->router->post("/userPost", [UserController::class, 'createPost']);
 $app->router->post("/cartPost", [CartController::class, 'cartPost']);

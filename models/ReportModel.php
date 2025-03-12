@@ -6,6 +6,9 @@ use app\core\Model;
 
 class ReportModel extends Model
 {
+    public string $dateFrom;
+    public string $dateTo;
+    public string $searchQuery = "";
 
     public function writeAttributes(): array
     {
@@ -25,5 +28,19 @@ class ReportModel extends Model
     public function tableName(): string
     {
         return "";
+    }
+
+    public function getTotalPricePerMonth()
+    {
+        $result = $this->query("SELECT MONTHNAME(created_on) as 'month', sum(total_price) as 'total_price' FROM `orders` WHERE `created_on` BETWEEN '$this->dateFrom' AND '$this->dateTo' group by MONTHNAME(created_on);");
+
+        echo json_encode($this->fetchList($result));
+    }
+
+    public function getTotalPricePerTitle()
+    {
+        $result = $this->query("SELECT title, sum(price) as 'total_price' FROM `order_items` WHERE title like '%$this->searchQuery%' or description like '%$this->searchQuery%' group by title;");
+
+        echo json_encode($this->fetchList($result));
     }
 }

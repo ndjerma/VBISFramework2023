@@ -8,14 +8,20 @@ use app\models\ReportModel;
 
 class ReportController extends Controller
 {
-
     public function totalPricePerMonth()
     {
         $model = new ReportModel();
-        $result = $model->query("SELECT MONTHNAME(created_on) as 'month', sum(total_price) as 'total_price' FROM `orders` group by MONTHNAME(created_on)");
-
-        echo json_encode($model->fetchList($result));
+        $model->mapData($this->request->all());
+        $model->getTotalPricePerMonth();
     }
+
+    public function totalPricePerTitle()
+    {
+        $model = new ReportModel();
+        $model->mapData($this->request->all());
+        $model->getTotalPricePerTitle();
+    }
+
     public function authorizeRoles(): array
     {
         return [Constant::$korisnik_role];
